@@ -1,0 +1,22 @@
+[
+  {
+    "id": "id-1",
+    "task": "Вивчити React",
+    "completed": true
+  },
+  {
+    "id": "id-2",
+    "task": "Розібратися з Redux",
+    "completed": false
+  },
+  {
+    "id": "id-3",
+    "task": "Найти роботу",
+    "completed": false
+  },
+  {
+    "id": "id-4",
+    "task": "Навчитись створювати сайти",
+    "completed": false
+  }
+]
