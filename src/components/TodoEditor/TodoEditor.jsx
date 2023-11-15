@@ -14,6 +14,7 @@ export default class TodoEditor extends Component {
     e.preventDefault();
 
     this.props.onSubmit(this.state.task);
+    this.setState({ task: ''});
   }
 
   render() {

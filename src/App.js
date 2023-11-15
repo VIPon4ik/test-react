@@ -5,10 +5,12 @@ import TodoList from "./components/TodoList/TodoList";
 import TodoEditor from "./components/TodoEditor/TodoEditor";
 import { FormFormik } from "./components/FormFormik/FormFormik";
 import { Form } from "formik";
+import Modal from "./components/Modal/Modal";
 
-export class App extends React.Component {
+class App extends React.Component {
     state = {
-        todos: initialTodos,
+        todos: [],
+        showModal: false,
     };
 
     handleAddTask = (task) => {
@@ -41,19 +43,48 @@ export class App extends React.Component {
         }));
     };
 
+    componentDidMount() {
+        const todos = localStorage.getItem('todos');
+        const parsedTodos = JSON.parse(todos);
+
+        if (parsedTodos) {
+            this.setState({ todos: parsedTodos })
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.todos !== this.state.todos) {
+            console.log('Todos оновилось')
+
+            localStorage.setItem('todos', JSON.stringify(this.state.todos));
+        }
+    }
+
+    modalToggle = () => {
+        this.setState(({ showModal }) => ({ showModal: !showModal }))
+    }
+
     render() {
-        const { todos } = this.state;
+        const { todos, showModal } = this.state;
         return (
             <div>
-                {/* <TodoEditor onSubmit={this.handleAddTask} />
+                <button type="button" onClick={this.modalToggle}>Відкрити модалку</button>
+                {showModal && <Modal onClose={this.modalToggle}>
+                    <h1>Some text</h1>
+                    <p>lorem ipsum kurwa matkajfkdsjalfkjslk
+                        fdsjkfdslkfjlkjsflkjdslk jfkldsjl
+                    </p>
+                    <button type="button" onClick={this.modalToggle}>Закрити модалку</button>
+                </Modal> }
+                <TodoEditor onSubmit={this.handleAddTask} />
 
                 <TodoList
                     todos={this.state.todos}
                     handleCheckbox={this.handleCheckbox}
                     handleDelete={this.handleDelete}
-                /> */}
+                />
 
-                <FormFormik />
+                {/* <FormFormik /> */}
             </div>
         );
     }
