@@ -1,17 +1,35 @@
-import React, { useEffect, useState } from 'react'
+import React, { useReducer } from "react";
+
+const countReducer = (state, action) => {
+    switch (action.type) {
+        case "increment":
+            return state + action.payload;
+        case "decrement":
+            return state - action.payload;
+
+        default:
+            throw new Error(`Unsupported action type ${action.type}`);
+    }
+};
 
 export default function Counter() {
-  const [counterA, setCounterA] = useState(0);
-  const [counterB, setCounterB] = useState(0);
+    const [count, dispatch] = useReducer(countReducer, 1);
 
-  useEffect(() => {
-    console.log('kurwa');
-  }, [counterA]);
-  
-  return (
-    <div>
-      <button type='button' onClick={() => setCounterA(prevState => prevState + 1)}>Counter A, clicked {counterA} times</button>
-      <button type='button' onClick={() => setCounterB(prevState => prevState + 1)}>Counter B, clicked {counterB} times</button>
-    </div>
-  )
+    return (
+        <div>
+            <p>{count}</p>
+            <button
+                type="button"
+                onClick={() => dispatch({ type: "increment", payload: 1 })}
+            >
+                Збільшити
+            </button>
+            <button
+                type="button"
+                onClick={() => dispatch({ type: "decrement", payload: 1 })}
+            >
+                Зменшити
+            </button>
+        </div>
+    );
 }

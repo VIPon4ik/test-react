@@ -1,43 +1,43 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { BsSearch } from "react-icons/bs";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
-export default class PokemonForm extends Component {
-    state = {
-        pokemonName: "",
-    };
+export const PokemonForm = ({ handleSubmit }) => {
+    const [pokemonName, setPokemonName] = useState("");
 
-    handleSubmit = e => {
+    const handleSearch = (e) => {
         e.preventDefault();
 
-        const { pokemonName } = this.state;
-
-        if (pokemonName.trim() === '') {
-          toast.error("Введіть ім'я покемона");
-          return;
+        if (pokemonName.trim() === "") {
+            toast.error("Введіть ім'я покемона");
+            return;
         }
 
-        this.props.handleSubmit(pokemonName);
-        this.setState({ pokemonName: '' })
+        handleSubmit(pokemonName);
+        setPokemonName("");
     };
 
-    handleChange = e => {
-      this.setState({ pokemonName: e.target.value })
-    }
+    const handleChange = (e) => {
+        setPokemonName(e.target.value);
+    };
 
-    render() {
-        const { pokemonName } = this.state;
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <label htmlFor="pokemon">
-                    Search pokemon:
-                    <input type="text" name="pokemon" value={pokemonName} onChange={this.handleChange}/>
-                </label>
+    return (
+        <form onSubmit={handleSearch}>
+            <label htmlFor="pokemon">
+                Search pokemon:
+                <input
+                    type="text"
+                    name="pokemon"
+                    value={pokemonName}
+                    onChange={handleChange}
+                />
+            </label>
 
-                <button type="submit">
-                    <BsSearch />{" "}
-                </button>
-            </form>
-        );
-    }
-}
+            <button type="submit">
+                <BsSearch />
+            </button>
+        </form>
+    );
+};
+
+export default PokemonForm;

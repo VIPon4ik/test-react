@@ -5,6 +5,7 @@ import Timer from "./components/Timer/Timer";
 import { UserMenu } from "./components/UserMenu";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import Player from "./components/Player/Player";
+import SkipEffectOnFirstRender from "./components/SkipEffectOnFirstRender/SkipEffectOnFirstRender";
 
 const colorPickerOptions = [
     { label: "red", color: "#F44336" },
@@ -15,7 +16,7 @@ const colorPickerOptions = [
 export const App3 = () => {
   return(
     <div>
-
+      <Counter />
     </div>
   )
 }
